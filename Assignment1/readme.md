@@ -24,7 +24,7 @@ For client:
 ## 2. Usage
 
 First type in the name when prompted.
-Now on, any message that you type will be treated as ones, that you want to send to your chosen receiver.
+Now on, any message that you type will be treated as one that you want to send to your chosen receiver.
 Except messages starting with '-'. (Say, they are more like messages to server.)
 Now here is how to use them.
 
