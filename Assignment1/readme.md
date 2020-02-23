@@ -37,5 +37,13 @@ For client:
   - `-c` to change your name.
   - `-g <group name>` to select the group you want to talk to.
   - `-gn <new group name>` to create a group, with the name given.
-  - `-gr` to leave the group.
-
+  - `-ga <person name>` to add that person to the selected group.
+  - `-gl` to list the members for the selected group.
+  - `-gc <new group name>` to change the name of the selected group.
+  - `-gr` to leave the selected group.
+  
+Some side notes
+- The program, on some level, treats groups and users alike. So group names have a ':' appended before them to distinguish them from normal users. (Use -l after creating a group to better understand this.)
+- So group can be members of other groups themselves. Though, as of now, nothing recursive is programmed to happen when messaged.
+- You can list all the group present on the server. But can only select (-g) the ones that you are present in.
+- New Group creation will already add you as the first member in the group. It will also clear your previous selection of talking. Group or person. (-sc will also clear the current selection of talking. Group or person.)
