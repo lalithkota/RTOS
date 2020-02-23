@@ -7,11 +7,11 @@ Then start messaging.
 Server uses _pthread_ library.
 Client uses _pthread_ and _ncurses_ libraries.
 ### 1b. Compilation
-For server, use:
+This is a pretty basic program. So most of the C compilers should work. While compiling make sure to link the pthread library for server, and pthread and ncurses library for client. Server, sample compile:
 
 `gcc server.c -o server -lpthread`
 
-For client, use:
+For client:
 
 `gcc client.c -o client -lpthread -lncurses`
 
