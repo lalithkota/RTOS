@@ -1,5 +1,5 @@
 # Chat Program
-Run one server on a network. Now multiple clients on the same network can join the server through the IP.
+Run one server on a network. Now multiple clients on the same network can join the server using the IP.
 
 Then start messaging.
 ## 1. Running
