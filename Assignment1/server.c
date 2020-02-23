@@ -335,8 +335,8 @@ void* start_client_exec(void* dump){
                     for(i=1; i <= group_members[group_id-1][0] ; i++){
                         //printf("OK %d\n",group_members[group_id-1][i]);
                         //printf("OK\n");
-                        //if(group_members[group_id-1][i]==0)continue;
-                        if(group_members[group_id-1][i]!=0 && names[group_members[group_id-1][i]-1][0]!='\0'){
+                        if(group_members[group_id-1][i]==0)continue;
+                        if(names[group_members[group_id-1][i]-1][0]!='\0'){
                             write(other_clients[my_id-1],"\n",1);
                             write(other_clients[my_id-1],names[group_members[group_id-1][i]-1],strlen(names[group_members[group_id-1][i]-1]));
                             
