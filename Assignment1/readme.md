@@ -45,5 +45,5 @@ For client:
 Some side notes
 - The program, on some level, treats groups and users alike. So group names have a ':' appended before them to distinguish them from normal users. (Use -l after creating a group to better understand this.)
 - So group can be members of other groups themselves. Though, as of now, nothing recursive is programmed to happen when messaged.
-- You can list all the group present on the server. But can only select (-g) the ones that you are present in.
+- You can list all the groups present on the server. But can only select (-g) the ones that you are present in.
 - New Group creation will already add you as the first member in the group. It will also clear your previous selection of talking. Group or person. (-sc will also clear the current selection of talking. Group or person.)
