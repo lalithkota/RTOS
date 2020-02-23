@@ -1,7 +1,7 @@
 # Chat Program
 Run one server on a network. Now multiple clients on the same network can join the server through the IP.
 
-Start messaging.
+Then start messaging.
 ## 1. Running
 ### 1a. Prerequisites
 Server uses _pthread_ library.
