@@ -233,7 +233,7 @@ void* writer_func(void* dump){
     return NULL;
 }
 
-int main(){
+int main(int arc, char** argv){
     initscr();
     cbreak();
     noecho();
@@ -248,10 +248,10 @@ int main(){
     
     server.sin_family=AF_INET;
 	
-    char* serverAddressString="127.0.0.1";
+    char* serverAddressString=argv[1];
     
 	server.sin_addr.s_addr=inet_addr(serverAddressString);
-	server.sin_port=htons(5555);
+	server.sin_port=htons(atoi(argv[2]));
     
     
     writer_pos_y=0;writer_pos_x=45;

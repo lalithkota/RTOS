@@ -256,6 +256,7 @@ void* start_client_exec(void* dump){
                     }
                     int i;
                     for(i=1; i <= group_members[group_id-1][0] ; i++){
+                        if(group_members[group_id-1][i]==0)continue;
                         if(strcmp(names[my_id-1],names[group_members[group_id-1][i]-1])==0){
                             group_members[group_id-1][i]=0;
                             break;
@@ -267,6 +268,7 @@ void* start_client_exec(void* dump){
                     for(j=1;j<=group_members[group_id-1][0];j++){
                         
                         if(group_members[group_id-1][j]==0)continue;
+                        if(other_clients[group_members[group_id-1][i]-1]==0)continue;
                         if(names[group_members[group_id-1][j]-1][0]==':')continue;
                         
                         write(other_clients[group_members[group_id-1][j]-1],"-m ",strlen("-m "));
@@ -283,6 +285,7 @@ void* start_client_exec(void* dump){
                     
                     group_id=0;
                     receiver_id=0;
+                    
                     /*
                     bool is_it_there=false;
                     int i;
@@ -332,7 +335,7 @@ void* start_client_exec(void* dump){
                     for(i=1; i <= group_members[group_id-1][0] ; i++){
                         //printf("OK %d\n",group_members[group_id-1][i]);
                         //printf("OK\n");
-                        if(group_members[group_id-1][i]==0)continue;
+                        //if(group_members[group_id-1][i]==0)continue;
                         if(group_members[group_id-1][i]!=0 && names[group_members[group_id-1][i]-1][0]!='\0'){
                             write(other_clients[my_id-1],"\n",1);
                             write(other_clients[my_id-1],names[group_members[group_id-1][i]-1],strlen(names[group_members[group_id-1][i]-1]));
@@ -406,11 +409,13 @@ void* start_client_exec(void* dump){
                         bool is_self_group=false;
                         int k;
                         for(k=1;k<=group_members[j-1][0];k++){
+                            if(group_members[j-1][k]==0)continue;
                             if(strcmp(names[my_id-1],names[group_members[j-1][k]-1])==0){
                                 is_self_group=true;
                                 break;
                             }
                         }
+                        //printf("ok2\n");
                         if(!is_self_group){
                             write(other_clients[my_id-1],"-m You are not from this group.\0",strlen("-m You are not from this group.\0")+1);
                         }
@@ -468,6 +473,7 @@ void* start_client_exec(void* dump){
                 for(i=1;i<=group_members[group_id-1][0];i++){
                     
                     if(group_members[group_id-1][i]==0)continue;
+                    if(other_clients[group_members[group_id-1][i]-1]==0)continue;
                     if(names[group_members[group_id-1][i]-1][0]==':')continue;
                     
                     write(other_clients[group_members[group_id-1][i]-1],names[receiver_id-1]+1,strlen(names[receiver_id-1]+1));
@@ -495,7 +501,7 @@ void* start_client_exec(void* dump){
     return NULL;
 }
 
-int main(){
+int main(int argc,char** argv){
     signal(SIGINT,sig_handler);
     signal(SIGSEGV,sig_handler);
     
@@ -514,18 +520,18 @@ int main(){
     
     unsigned clientLen;
 	
-	sd=socket(AF_INET,SOCK_STREAM,0);
+	sd=socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
 
-    char* serverAddressString="127.0.0.1";
+    char* serverAddressString=argv[1];
     
 	server.sin_family=AF_INET;
 	server.sin_addr.s_addr=inet_addr(serverAddressString);
-	server.sin_port=htons(5555);
+	server.sin_port=htons(atoi(argv[2]));
 
 	bind(sd,(struct sockaddr *)&server,sizeof(server));
 	listen(sd,100);
 	
-    printf("Server Address : %s\n",serverAddressString);
+    printf("Server Address : %s at %d\n",serverAddressString,ntohs(server.sin_port));
     
     char buff[100];
     
