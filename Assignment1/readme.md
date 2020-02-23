@@ -11,10 +11,10 @@ For client, use:
 
 `gcc client.c -o client -lpthread -lncurses`
 
-    client.c uses ncurses for the terminal interface. Please install it for your platform first before compilation and running
+Note: client.c uses ncurses for the terminal interface. Please install it for your platform first before compilation and running
 
 ### ii. Running
-First run server.
+First run server. Sample run:
 
 `./server <IP Address> <Port No>`
 
