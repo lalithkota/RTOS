@@ -1,19 +1,18 @@
 # Chat Program
 ## 1. Running
-### i. Compilation
+### 1a. Prerequisites
+Server uses _pthread_ library.
+Client uses _pthread_ and _ncurses_ libraries.
+### 1b. Compilation
 For server, use:
 
 `gcc server.c -o server -lpthread`
-
-Server uses lpthread library
 
 For client, use:
 
 `gcc client.c -o client -lpthread -lncurses`
 
-Note: client.c uses ncurses for the terminal interface. Please install it for your platform first before compilation and running
-
-### ii. Running
+### 1c. Running
 First run server. Sample run:
 
 `./server <IP Address> <Port No>`
