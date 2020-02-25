@@ -33,7 +33,8 @@ For client:
   - `-q` to exit the server.
   - `-l` to list all the users and groups.
   - `-s <receiver name>` to select who you want to talk to.
-  - `-sc` to clear selection.
+  - `-sr` to clear selection.
+  - `-o` to see who you are talking to.
   - `-c` to change your name.
   - `-g <group name>` to select the group you want to talk to.
   - `-gn <new group name>` to create a group, with the name given.
