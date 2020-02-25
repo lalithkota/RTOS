@@ -42,6 +42,9 @@ For client:
   - `-gl` to list the members for the selected group.
   - `-gc <new group name>` to change the name of the selected group.
   - `-gr` to leave the selected group.
+  - `-n` to shift the terminal 2 lines up.
+  - `-n<x>` to shift the terminal x lines up (-n1 to shift one line up. -n2 to shift 2 lines up, etc).
+  - `-r` to clear the whole page on terminal.
   
 Some side notes
 - The program, on some level, treats groups and users alike. So group names have a ':' appended before them to distinguish them from normal users. (Use -l after creating a group to better understand this.)
