@@ -28,6 +28,7 @@ char writer_quit_flag=0;
 char reader_quit_flag=0;
 bool reader_busy=false;
 char name[50];
+char uname[50];
 bool in_call=false;
 bool reader_in_call_busy=false;
 
@@ -419,10 +420,16 @@ int main(int arc, char** argv){
 	server.sin_port=htons(atoi(argv[2]));
     
     
-    writer_pos_y=0;writer_pos_x=45;
-    printw("Give your name(in not more than 50 letters): ");
-    int temp_a=myScanf(name);
-    name[temp_a]='\0';
+    writer_pos_y=1;writer_pos_x=strlen("(This username is unique for each person, and might be visible to others): ");
+    printw("Give a username(in not more than 50 letters)\n(This username is unique for each person, and might be visible to others): ");
+    int temp_a=myScanf(uname);	//scan for username which is sent to server, below in the loop start
+    uname[temp_a]='\0';
+	
+	char password[50];
+	writer_pos_y++;writer_pos_x=strlen("Give Your Password (in not more than 50 letters. This can be anything): ");
+	mvprintw(writer_pos_y,0,"Give Your Password (in not more than 50 letters. This can be anything): ");
+	temp_a=myScanf(password);	//scan for password which is sent to server, below in the loop start
+	password[temp_a]='\0';
     
     while(1){
         //------
@@ -433,21 +440,43 @@ int main(int arc, char** argv){
             return 1;
         }
         
-        write(sd,name,strlen(name)+1);
+        write(sd,uname,strlen(uname)+1);		//send username
+		write(sd,password,strlen(password)+1);	//send password
     
-        char temp_buff[1024];
-        int temp_read_name_flag=read_line(sd,temp_buff);
-        if(temp_read_name_flag==1 || temp_buff[0]=='N'){
+        char temp_buff[5];
+        int temp_read_name_flag=read_line(sd,temp_buff); // read acknowledgement
+        if(temp_read_name_flag==1){
+			//server quit in bad position .. rarely happens
+		}
+		else if(temp_buff[0]=='N'){		// Username missmatch ack
             close(sd);
             sd=socket(AF_INET,SOCK_STREAM,0);
-            mvprintw(++writer_pos_y,0,"Give a different name(in not more than 50 letters): ");
-            writer_pos_x=52;
+            mvprintw(++writer_pos_y,0,"Give a different username(in not more than 50 letters): ");
+            writer_pos_x=strlen("Give a different username(in not more than 50 letters): ");
             
-            temp_a=myScanf(name);
-            name[temp_a]='\0';
+            int temp_a=myScanf(uname);
+            uname[temp_a]='\0';
             
         }
-        else{
+		else if(temp_buff[0]=='P'){		// Password missmatch ack
+			close(sd);
+            sd=socket(AF_INET,SOCK_STREAM,0);
+            mvprintw(++writer_pos_y,0,"Incorrect Password. Try Again: ");
+            writer_pos_x=strlen("Incorrect Password. Try Again: ");
+            
+            int temp_a=myScanf(password);
+            password[temp_a]='\0';
+            
+		}
+        else{							// Accepted ack
+			
+			writer_pos_y++;writer_pos_x=strlen("Give Your Name (in not more than 50 letters. This can be anything): ");
+			mvprintw(writer_pos_y,0,"Give Your Name (in not more than 50 letters. This can be anything): ");
+			temp_a=myScanf(name);
+			name[temp_a]='\0';
+			
+			write(sd,name,strlen(name)+1);
+			
             reader_pos_x=0;reader_pos_y=writer_pos_y+1;
             break;
         }
